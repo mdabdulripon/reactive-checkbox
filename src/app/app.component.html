@@ -1,0 +1,21 @@
+<div class="container">
+	<h1>
+		{{ title }}
+	</h1>
+
+	<table>
+			<tr>
+				<th *ngFor="let item of headers">
+					{{ item.name }}
+				</th>
+			</tr>
+
+			<tr *ngFor="let item of rows">
+				<td> {{ item.name }} </td>
+				<td> {{ item.foundedYear }} </td>
+				<td> {{ item.websiteUrl }} </td>
+				<td> {{ item.operatingStatus }} </td>
+				<td> {{ item.fundingStatus }} </td>
+			</tr>
+	</table>
+</div>
