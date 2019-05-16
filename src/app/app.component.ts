@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
 
 @Component({
 	selector: 'app-root',
@@ -8,19 +7,10 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit {
 	
-	public title = 'Multiple Http Call With';
+	public title = 'Reactive Checkbox';
 
-	public headers: any;
-	public rows: any;
-
-	constructor( private _data: DataService) { }
+	constructor() { }
 
 	ngOnInit() {
-		this._data.getData().subscribe(res => {
-			console.log(`res 1`, res[0])
-			console.log(`res 2`, res[1])
-			this.headers = res[0].companyInfo;
-			this.rows = res[1].rows;
-		});
 	}
 }

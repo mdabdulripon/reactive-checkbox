@@ -1,0 +1,43 @@
+<form [formGroup]="myForm" (ngSubmit)="save()">
+	<div>
+		<div *ngFor="let item of monthLists" class="items">
+			<input id="{{ item.value }}" type="checkbox" name="{{ item.value }}" [checked]="item.checked"
+				(click)="toggleMonth(item)" />
+			<label attr.for="{{ item.value }}">{{ item.name }}</label>
+
+			<span *ngIf="item">
+				<select class="form-control checkbox-with-drop-down" (change)="changeDays($event)">
+					<option *ngFor="let item of daysLists" [value]="item.value" [selected]="item.key == 30">
+						{{ item.key }}
+					</option>
+				</select>
+			</span>
+		</div>
+
+		<!-- ! I want by default beginners will be checked and this checkbox should behave like radio button -->
+		<div formGroupName="experience" class="items">
+			<div>
+				<input id="beginners" type="checkbox" name="beginners" formControlName="beginners" />
+				beginners
+			</div>
+			<div>
+				<input id="intermediate" type="checkbox" name="intermediate" formControlName="intermediate" />
+				intermediate
+			</div>
+			<div>
+				<input id="advance" type="checkbox" name="advance" formControlName="advance" />
+				advance
+			</div>
+			<div>
+				<input id="master" type="checkbox" name="master" formControlName="master" />
+				master
+			</div>
+		</div>
+	</div>
+	<div class="items">
+		<button type="submit">save</button>
+	</div>
+</form>
+ <div class="items">
+	 <pre>Data:: {{ myForm.value | json }}</pre>
+ </div>
