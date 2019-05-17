@@ -1,36 +1,49 @@
 <form [formGroup]="myForm" (ngSubmit)="save()">
-	<div>
-		<div *ngFor="let item of monthLists" class="items">
-			<input id="{{ item.value }}" type="checkbox" name="{{ item.value }}"
-				[checked]="item.checked"
-				(click)="toggleMonth(item)" />
-			<label attr.for="{{ item.value }}">{{ item.name }}</label>
+  <div>
+    <div *ngFor="let item of monthLists" class="items">
+      <input
+        id="{{ item.value }}"
+        type="checkbox"
+        name="{{ item.value }}"
+        [checked]="item.checked"
+        (click)="toggleMonth(item)"
+      />
+      <label attr.for="{{ item.value }}">{{ item.name }}</label>
 
-			<span *ngIf="item">
-				<select class="form-control checkbox-with-drop-down"
-					(change)="changeDays($event, item)">
-					<option *ngFor="let item of daysLists" [value]="item.value"
-						[selected]="item.key == 30">
-						{{ item.key }}
-					</option>
-				</select>
-			</span>
-		</div>
+      <span *ngIf="item">
+        <select
+          class="form-control checkbox-with-drop-down"
+          (change)="changeDays($event, item)"
+        >
+          <option
+            *ngFor="let item of daysLists"
+            [value]="item.value"
+            [selected]="item.key == 30"
+          >
+            {{ item.key }}
+          </option>
+        </select>
+      </span>
+    </div>
 
-		<!-- ! I want by default beginners will be checked and this checkbox should behave like radio button -->
-		<div formGroupName="experience" class="items">
-			<mat-radio-group aria-label="Select an option" value="item"
-				(change)="onRadioChange($event)">
-				<div *ngFor="let item of experienceLists">
-					<mat-radio-button id="{{ item.key}}" value="{{ item.value }}">{{item.value}}</mat-radio-button>
-				</div>
-			</mat-radio-group>
-		</div>
-	</div>
-	<div class="items">
-		<button type="submit">save</button>
-	</div>
+    <!-- ! I want by default beginners will be checked and this checkbox should behave like radio button -->
+    <div class="items">
+      <div>
+        <div *ngFor="let item of experienceLists">
+          <input
+            type="radio"
+            name="experience"
+            value="{{ item.value }}"
+            (change)="onRadioChange($event)"
+          />{{ item.value }}
+        </div>
+      </div>
+    </div>
+    <div class="items">
+      <button type="submit">save</button>
+    </div>
+  </div>
 </form>
 <div class="items">
-	<pre>Data:: {{ myForm.value | json }}</pre>
+  <pre>Data:: {{ myForm.value | json }}</pre>
 </div>

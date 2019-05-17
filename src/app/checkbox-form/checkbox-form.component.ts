@@ -39,19 +39,19 @@ export class CheckboxFormComponent implements OnInit {
   ngOnInit() {
     this.myForm = this._fb.group({
       months: this._fb.array([]),
-      experience: this._fb.group({
-        beginners: [""],
-        intermediate: [""],
-        advance: [""],
-        master: [""]
-      })
+      experience: this._fb.group({})
     });
 
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < this.monthLists.length; i++) {
       this.addMonthDay(this.monthLists[i].name, 30);
       this.dayLists.push(30);
     }
-    console.log(this.myForm.value);
+    const experienceForm = this.myForm.get("experience") as FormGroup;
+    for (let i = 0; i < 4; i++) {
+      const index = this.experienceLists[i].value;
+      experienceForm.addControl(index, new FormControl("false"));
+    }
+    console.log(experienceForm);
   }
 
   addMonthDay(monthName, day) {
@@ -87,6 +87,7 @@ export class CheckboxFormComponent implements OnInit {
   removeMonth(monthName) {
     var cnt = this.myForm.value.months.length;
     for (let i = 0; i < cnt; i++) {
+      console.log(this.myForm.value.months);
       var val = this.myForm.value.months[i].month;
       var def = monthName;
 
@@ -94,6 +95,7 @@ export class CheckboxFormComponent implements OnInit {
         console.log(val, def, i);
         const monthArray = this.myForm.get("months") as FormArray;
         monthArray.removeAt(i);
+        break;
       }
     }
   }
@@ -132,7 +134,7 @@ export class CheckboxFormComponent implements OnInit {
   onRadioChange(event) {
     var i = 0;
     for (i = 0; i < 4; i++) {
-      var val = event.value;
+      var val = event.target.value;
       var index = this.experienceLists[i].value;
       if (index === val) this.myForm.value.experience[index] = "true";
       else this.myForm.value.experience[index] = "false";
