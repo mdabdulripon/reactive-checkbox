@@ -7,19 +7,17 @@
         name="{{ item.value }}"
         [checked]="item.checked"
         (click)="toggleMonth(item)"
-      />
+        />
       <label attr.for="{{ item.value }}">{{ item.name }}</label>
 
       <span *ngIf="item">
         <select
           class="form-control checkbox-with-drop-down"
-          (change)="changeDays($event, item)"
-        >
+          (change)="changeDays($event, item)">
           <option
             *ngFor="let item of daysLists"
             [value]="item.value"
-            [selected]="item.key == 30"
-          >
+            [selected]="item.key == 30">
             {{ item.key }}
           </option>
         </select>
@@ -33,9 +31,10 @@
           <input
             type="radio"
             name="experience"
+            [checked]="item.value == 'beginners'"
             value="{{ item.value }}"
             (change)="onRadioChange($event)"
-          />{{ item.value }}
+            />{{ item.value }}
         </div>
       </div>
     </div>

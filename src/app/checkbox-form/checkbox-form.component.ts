@@ -46,12 +46,16 @@ export class CheckboxFormComponent implements OnInit {
       this.addMonthDay(this.monthLists[i].name, 30);
       this.dayLists.push(30);
     }
+
     const experienceForm = this.myForm.get("experience") as FormGroup;
     for (let i = 0; i < 4; i++) {
       const index = this.experienceLists[i].value;
-      experienceForm.addControl(index, new FormControl("false"));
+      if (index === "beginners") {
+        experienceForm.addControl(index, new FormControl("true"));
+      } else {
+        experienceForm.addControl(index, new FormControl("false"));
+      }
     }
-    console.log(experienceForm);
   }
 
   addMonthDay(monthName, day) {
@@ -68,7 +72,7 @@ export class CheckboxFormComponent implements OnInit {
     var day = event.target.value;
     var month = item.value;
     this.changeDay(month, day);
-    //this.myForm.value.months.push({ month: month, days: day });
+    // this.myForm.value.months.push({ month: month, days: day });
   }
 
   changeDay(monthName, day) {
@@ -87,12 +91,10 @@ export class CheckboxFormComponent implements OnInit {
   removeMonth(monthName) {
     var cnt = this.myForm.value.months.length;
     for (let i = 0; i < cnt; i++) {
-      console.log(this.myForm.value.months);
       var val = this.myForm.value.months[i].month;
       var def = monthName;
 
       if (val === def) {
-        console.log(val, def, i);
         const monthArray = this.myForm.get("months") as FormArray;
         monthArray.removeAt(i);
         break;
